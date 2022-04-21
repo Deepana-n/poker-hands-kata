@@ -29,4 +29,12 @@ class HandTest {
         assertTrue(handObj.isThreeOfAKind(currentHand));
     }
 
+    @Test
+    public void testIsStraight(){
+        Hand handObj = new Hand();;
+        Card[] currentHand = {new Card("2C"),new Card("3C"),new Card("4C"),new Card("5C"),new Card("6C")};
+        Arrays.sort(currentHand);
+        assertTrue(handObj.isStraight(currentHand));
+    }
+
 }

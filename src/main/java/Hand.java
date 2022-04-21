@@ -71,4 +71,9 @@ public class Hand {
         return (card1.equals(card3) || card2.equals(card4) || card3.equals(card5));
     }
 
+    public boolean isStraight(Card[] currentHand){
+        //Straight: Hand contains 5 cards with consecutive values.
+        return currentHand[4].getValue() - currentHand[0].getValue() == 4;
+    }
+
 }
