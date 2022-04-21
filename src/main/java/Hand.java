@@ -46,4 +46,29 @@ public class Hand {
                 card4.equals(card5) && !card4.equals(card3);
     }
 
+    public boolean isTwoPair(Card[] currentHand){
+        //Two Pairs: The hand contains 2 different pairs.
+        Card card1 = currentHand[0];
+        Card card2 = currentHand[1];
+        Card card3 = currentHand[2];
+        Card card4 = currentHand[3];
+        Card card5 = currentHand[4];
+
+        return ((card1.equals(card2) && card3.equals(card4) && !card2.equals(card3) && !card4.equals(card5)) ||
+                (!card1.equals(card2) && card2.equals(card3) && !card3.equals(card4) && card4.equals(card5)) ||
+                (card1.equals(card2) && card4.equals(card5) && !card2.equals(card3) && !card3.equals(card4))
+        );
+    }
+
+    public boolean isThreeOfAKind(Card[] currentHand){
+        //Three of a Kind:Three of the cards in the hand have the same value
+        Card card1 = currentHand[0];
+        Card card2 = currentHand[1];
+        Card card3 = currentHand[2];
+        Card card4 = currentHand[3];
+        Card card5 = currentHand[4];
+
+        return (card1.equals(card3) || card2.equals(card4) || card3.equals(card5));
+    }
+
 }
