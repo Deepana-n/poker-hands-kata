@@ -76,4 +76,14 @@ public class Hand {
         return currentHand[4].getValue() - currentHand[0].getValue() == 4;
     }
 
+    public boolean isFlush(Card[] currentHand){
+       // Flush: Hand contains 5 cards of the same suit.
+        for (int i=0;i<currentHand.length-1;i++){
+            if (currentHand[i+1].getSuit() != currentHand[i].getSuit()){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
