@@ -86,4 +86,16 @@ public class Hand {
         return true;
     }
 
+    public boolean isFullHouse(Card[] currentHand){
+        // Full House: 3 cards of the same value, with the remaining 2 cards forming a pair.
+        Card card1 = currentHand[0];
+        Card card2 = currentHand[1];
+        Card card3 = currentHand[2];
+        Card card4 = currentHand[3];
+        Card card5 = currentHand[4];
+
+        return ((card1.equals(card2) && !card2.equals(card3) && card3.equals(card5)) ||
+                (card1.equals(card3) && !card3.equals(card4) && card4.equals(card5)));
+    }
+
 }

@@ -45,4 +45,12 @@ class HandTest {
         assertTrue(handObj.isFlush(currentHand));
     }
 
+    @Test
+    public void testIsFullHouse(){
+        Hand handObj = new Hand();;
+        Card[] currentHand = {new Card("2C"),new Card("2H"),new Card("2S"),new Card("5C"),new Card("5D")};
+        Arrays.sort(currentHand);
+        assertTrue(handObj.isFullHouse(currentHand));
+    }
+
 }
