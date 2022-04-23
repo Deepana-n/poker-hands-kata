@@ -127,6 +127,21 @@ public class Hand {
     }
 
 
+    public int compareDecreasingHighCard(Hand hand1, Hand hand2) {
+        Card[] hand1Cards = hand1.getPlayerHand();
+        Card[] hand2Cards = hand2.getPlayerHand();
+        int current = hand1Cards.length-1;
+        int compare = 0;
+        while (current>=0){
+            compare = hand1Cards[current].compareTo(hand2Cards[current]);
+            if (compare!=0) break;
+            current--;
+        }
+        return compare;
+
+    }
+
+
 
 
 
