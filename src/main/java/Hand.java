@@ -33,6 +33,19 @@ public class Hand {
         return playerName;
     }
 
+    private handRank getHandRank(){
+        Card[] tempHandRank = this.getPlayerHand();
+        if (isStraightFlush(tempHandRank)) return handRank.STRAIGHTFLUSH;
+        else if (isFourOfAKind(tempHandRank)) return handRank.FOUROFAKIND;
+        else if (isFullHouse(tempHandRank)) return handRank.FULLHOUSE;
+        else if (isFlush(tempHandRank)) return handRank.FLUSH;
+        else if (isStraight(tempHandRank)) return handRank.STRAIGHT;
+        else if (isThreeOfAKind(tempHandRank)) return handRank.THREEOFAKIND;
+        else if (isTwoPair(tempHandRank)) return handRank.TWOPAIR;
+        else if (isPair(tempHandRank)) return handRank.PAIR;
+        else return handRank.HIGHCARD;
+    }
+
     public boolean isPair(Card[] currentHand){
         //Pair: 2 of the 5 cards in the hand have the same value.
         Card card1 = currentHand[0];
@@ -97,5 +110,24 @@ public class Hand {
         return ((card1.equals(card2) && !card2.equals(card3) && card3.equals(card5)) ||
                 (card1.equals(card3) && !card3.equals(card4) && card4.equals(card5)));
     }
+
+    public boolean isFourOfAKind(Card[] currentHand){
+        return (currentHand[0].getValue() == currentHand[3].getValue() ||
+                currentHand[1].getValue() == currentHand[4].getValue());
+    }
+
+    public boolean isStraightFlush(Card[] currentHand){
+        return isStraight(currentHand) && isFlush(currentHand);
+    }
+
+    public int compareHighCard(Hand hand1, Hand hand2){
+        Card[] hand1Cards = hand1.getPlayerHand();
+        Card[] hand2Cards = hand2.getPlayerHand();
+        return hand1Cards[hand1Cards.length-1].compareTo(hand2Cards[hand2Cards.length-1]);
+    }
+
+
+
+
 
 }
