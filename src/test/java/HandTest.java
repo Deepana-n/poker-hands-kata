@@ -71,4 +71,28 @@ class HandTest {
         assertEquals(-1, handObj.compareDecreasingHighCard(blackHand,whiteHand));
     }
 
+    @Test
+    public void testWhiteWinsHighCard(){
+        Hand handObj = new Hand();
+        Hand blackHand = new Hand("2H 3D 5S 9C KD","black");
+        Hand whiteHand = new Hand("2C 3H 4S 8C AH","white");
+        assertEquals("white", handObj.getWinner(blackHand,whiteHand));
+    }
+
+    @Test
+    public void testBlackWinsFullHouse(){
+        Hand handObj = new Hand();
+        Hand blackHand = new Hand("2H 4S 4C 2D 4H","black");
+        Hand whiteHand = new Hand("2S 8S AS QS 3S","white");
+        assertEquals("black", handObj.getWinner(blackHand,whiteHand));
+    }
+
+    @Test
+    public void testBlackWinsCompareHighCard(){
+        Hand handObj = new Hand();
+        Hand blackHand = new Hand("2H 3D 5S 9C KD","black");
+        Hand whiteHand = new Hand("2D 3H 5C 9S KH","white");
+        assertEquals("Tie.", handObj.getWinner(blackHand,whiteHand));
+    }
+
 }

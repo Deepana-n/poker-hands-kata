@@ -141,8 +141,59 @@ public class Hand {
 
     }
 
+    public Card compareFourOfAKind(Hand hand){
+        Card[] cards = hand.getPlayerHand();
+        if (cards[0] == cards[3]) return cards[0];
+        else if (cards[1] == cards[4]) return cards[1];
+        return null;
+    }
 
+    public Card compareThreeOfAKind(Hand hand){
+        Card[] cards = hand.getPlayerHand();
+        if (cards[0] == cards[2]) return cards[0];
+        else if (cards[1] == cards[3]) return cards[1];
+        else if (cards[2] == cards[4]) return cards[2];
+        return null;
+    }
 
+    public String getWinner(Hand hand1, Hand hand2){
+        handRank hand1Rank = hand1.getHandRank();
+        handRank hand2Rank = hand2.getHandRank();
+        Card[] hand1Cards = hand1.getPlayerHand();
+        Card[] hand2Cards = hand2.getPlayerHand();
+        int compare = hand1Rank.compareTo(hand2Rank);
+        if (compare>0) return hand1.getPlayerName();
+        else if (compare<0) return hand2.getPlayerName();
+        else{
+            switch (hand1Rank){
+                case STRAIGHTFLUSH :
+                    compare = compareHighCard(hand1,hand2);
+                    break;
+                case FOUROFAKIND :
+                    compare = compareFourOfAKind(hand1).compareTo(compareFourOfAKind(hand2));
+                    break;
+                case FULLHOUSE :
+                    compare = compareThreeOfAKind(hand1).compareTo(compareThreeOfAKind(hand2));
+                    break;
+                case FLUSH :
+                    compare = compareDecreasingHighCard(hand1,hand2);
+                    break;
+                case STRAIGHT :
+                    compare = compareHighCard(hand1,hand2);
+                    break;
+                case THREEOFAKIND :
+                    compare = compareThreeOfAKind(hand1).compareTo(compareThreeOfAKind(hand2));
+                    break;
+                case TWOPAIR :
+                    break;
+                case PAIR :
+                    break;
+                case HIGHCARD :
+                    compare = compareDecreasingHighCard(hand1,hand2);
+                    break;
+            }
+        }
 
-
+        return compare > 0  ? hand1.getPlayerName() : compare < 0 ? hand2.getPlayerName():"Tie.";
+    }
 }
