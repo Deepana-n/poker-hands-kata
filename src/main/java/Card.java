@@ -2,6 +2,7 @@ public class Card implements Comparable<Card> {
     private final int value;
     private final char suit;
     private final int rank;
+    private final String cardString;
     private final String values = "23456789TJQKA";
     private final String suits = "CDHS";
 
@@ -9,6 +10,7 @@ public class Card implements Comparable<Card> {
         rank = ranking(cardString);
         value = rank/suits.length();
         suit = suits.charAt(rank%suits.length());
+        this.cardString = cardString;
     }
 
     public int getValue() {
@@ -50,7 +52,7 @@ public class Card implements Comparable<Card> {
 
     @Override
     public String toString(){
-        return "["+value+suit+"]";
+        return ": " + cardString.charAt(0);
     }
 
 }

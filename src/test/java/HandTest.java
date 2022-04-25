@@ -76,7 +76,7 @@ class HandTest {
         Hand handObj = new Hand();
         Hand blackHand = new Hand("2H 3D 5S 9C KD","black");
         Hand whiteHand = new Hand("2C 3H 4S 8C AH","white");
-        assertEquals("white", handObj.getWinner(blackHand,whiteHand));
+        assertEquals("white:A", handObj.getWinner(blackHand,whiteHand));
     }
 
     @Test

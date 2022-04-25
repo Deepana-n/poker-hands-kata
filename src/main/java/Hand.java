@@ -9,6 +9,7 @@ public class Hand {
 
     private final Card[] playerHand;
     private final String playerName;
+    private static String winningCard;
 
     public Hand(){
         playerHand = null;
@@ -32,6 +33,8 @@ public class Hand {
     public String getPlayerName() {
         return playerName;
     }
+
+
 
     private handRank getHandRank(){
         Card[] tempHandRank = this.getPlayerHand();
@@ -123,7 +126,11 @@ public class Hand {
     public int compareHighCard(Hand hand1, Hand hand2){
         Card[] hand1Cards = hand1.getPlayerHand();
         Card[] hand2Cards = hand2.getPlayerHand();
-        return hand1Cards[hand1Cards.length-1].compareTo(hand2Cards[hand2Cards.length-1]);
+        int compare = 0;
+        compare = hand1Cards[hand1Cards.length-1].compareTo(hand2Cards[hand2Cards.length-1]);
+        if(compare>0) winningCard = hand1Cards[hand1Cards.length-1].toString();
+        else if(compare<0) winningCard = hand2Cards[hand2Cards.length-1].toString();
+        return compare;
     }
 
 
@@ -137,6 +144,8 @@ public class Hand {
             if (compare!=0) break;
             current--;
         }
+        if(compare>0) winningCard = hand1Cards[hand1Cards.length-1].toString();
+        else if(compare<0) winningCard = hand2Cards[hand2Cards.length-1].toString();
         return compare;
 
     }
@@ -194,6 +203,6 @@ public class Hand {
             }
         }
 
-        return compare > 0  ? hand1.getPlayerName() : compare < 0 ? hand2.getPlayerName():"Tie.";
+        return compare > 0  ? hand1.getPlayerName() + " wins. " + winningCard  : compare < 0 ? hand2.getPlayerName() + " wins. " + winningCard :"Tie.";
     }
 }

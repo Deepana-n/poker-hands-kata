@@ -15,7 +15,7 @@ public class Main {
             Hand whiteHand = new Hand(whiteHands,"White");
             String result = new Hand().getWinner(blackHand, whiteHand);
             if (result.equals("Tie.")) System.out.println(result);
-            else System.out.println(result+" wins.");
+            else System.out.println(result);
             System.out.println();
         }
     }
