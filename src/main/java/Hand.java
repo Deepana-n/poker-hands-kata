@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Hand {
 
@@ -9,7 +11,8 @@ public class Hand {
 
     private final Card[] playerHand;
     private final String playerName;
-    private static String winningCard;
+    private static List<String> messageList = new ArrayList<>();
+
 
     public Hand(){
         playerHand = null;
@@ -34,7 +37,13 @@ public class Hand {
         return playerName;
     }
 
+    public void setMessage(String message) {
+        messageList.add(message);
+    }
 
+    public List<String> getMessageList() {
+        return messageList;
+    }
 
     private handRank getHandRank(){
         Card[] tempHandRank = this.getPlayerHand();
@@ -109,9 +118,16 @@ public class Hand {
         Card card3 = currentHand[2];
         Card card4 = currentHand[3];
         Card card5 = currentHand[4];
+        boolean fullHouse = false;
 
-        return ((card1.equals(card2) && !card2.equals(card3) && card3.equals(card5)) ||
-                (card1.equals(card3) && !card3.equals(card4) && card4.equals(card5)));
+        if(card1.equals(card2) && !card2.equals(card3) && card3.equals(card5)){
+            fullHouse  = true;
+            setMessage("- with full house: " + card3 + " over " + card2);
+        }else if(card1.equals(card3) && !card3.equals(card4) && card4.equals(card5)){
+            fullHouse = true;
+            setMessage("- with full house: " + card1 + " over " + card4);
+        }
+        return fullHouse;
     }
 
     public boolean isFourOfAKind(Card[] currentHand){
@@ -128,8 +144,8 @@ public class Hand {
         Card[] hand2Cards = hand2.getPlayerHand();
         int compare = 0;
         compare = hand1Cards[hand1Cards.length-1].compareTo(hand2Cards[hand2Cards.length-1]);
-        if(compare>0) winningCard = hand1Cards[hand1Cards.length-1].toString();
-        else if(compare<0) winningCard = hand2Cards[hand2Cards.length-1].toString();
+        if(compare>0) setMessage(hand1Cards[hand1Cards.length-1].toString());
+        else if(compare<0) setMessage(hand2Cards[hand2Cards.length-1].toString());
         return compare;
     }
 
@@ -144,8 +160,8 @@ public class Hand {
             if (compare!=0) break;
             current--;
         }
-        if(compare>0) winningCard = hand1Cards[hand1Cards.length-1].toString();
-        else if(compare<0) winningCard = hand2Cards[hand2Cards.length-1].toString();
+        if(compare>0) setMessage("- with high card: " + hand1Cards[hand1Cards.length-1].toString());
+        else if(compare<0) setMessage("- with high card: " +hand2Cards[hand2Cards.length-1].toString());
         return compare;
 
     }
@@ -168,11 +184,9 @@ public class Hand {
     public String getWinner(Hand hand1, Hand hand2){
         handRank hand1Rank = hand1.getHandRank();
         handRank hand2Rank = hand2.getHandRank();
-        Card[] hand1Cards = hand1.getPlayerHand();
-        Card[] hand2Cards = hand2.getPlayerHand();
         int compare = hand1Rank.compareTo(hand2Rank);
-        if (compare>0) return hand1.getPlayerName();
-        else if (compare<0) return hand2.getPlayerName();
+        if (compare>0) return hand1.getPlayerName() + " wins. " + messageList.get(0);
+        else if (compare<0) return hand2.getPlayerName() + " wins. " + messageList.get(1);
         else{
             switch (hand1Rank){
                 case STRAIGHTFLUSH :
@@ -202,7 +216,6 @@ public class Hand {
                     break;
             }
         }
-
-        return compare > 0  ? hand1.getPlayerName() + " wins. " + winningCard  : compare < 0 ? hand2.getPlayerName() + " wins. " + winningCard :"Tie.";
+        return compare > 0  ? hand1.getPlayerName() + " wins. " + messageList.get(0)  : compare < 0 ? hand2.getPlayerName() + " wins. " +  messageList.get(0)  :"Tie.";
     }
 }

@@ -52,7 +52,7 @@ public class Card implements Comparable<Card> {
 
     @Override
     public String toString(){
-        return ": " + cardString.charAt(0);
+        return "" + cardString.charAt(0);
     }
 
 }
